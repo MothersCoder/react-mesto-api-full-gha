@@ -1,0 +1,11 @@
+.error-page__image {
+  display: flex;
+  margin: 10px auto;
+}
+
+@media screen and (max-width: 540px) {
+  .error-page__image {
+    max-width: 300px;
+  }
+}
+

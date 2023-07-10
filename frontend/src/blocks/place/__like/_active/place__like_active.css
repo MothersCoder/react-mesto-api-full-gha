@@ -1,0 +1,5 @@
+.place__like_active {
+  opacity: 1;
+  background-image: url("../../../../images/black-heart.svg");
+}
+

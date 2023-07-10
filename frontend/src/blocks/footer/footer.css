@@ -1,0 +1,22 @@
+.footer {
+  margin: 0 auto;
+  max-width: calc(100% - 400px);
+}
+
+@media screen and (max-width: 1070px) {
+  .footer {
+    max-width: calc(100% - 200px);
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .footer {
+    max-width: calc(100% - 50px);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .footer {
+    max-width: calc(100% - 38px);
+  }
+}

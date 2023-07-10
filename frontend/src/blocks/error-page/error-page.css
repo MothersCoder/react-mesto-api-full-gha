@@ -1,0 +1,22 @@
+.error-page {
+  max-width: calc(100% - 400px);
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1070px) {
+  .error-page {
+    max-width: calc(100% - 200px);
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .error-page {
+    max-width: calc(100% - 50px);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .error-page {
+    max-width: 100%;
+  }
+}

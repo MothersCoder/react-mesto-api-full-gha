@@ -1,0 +1,13 @@
+.header__action-button {
+  background-color: black;
+  border: 0;
+  cursor: pointer;
+  color: #A9A9A9;
+  margin-left: 24px;
+}
+
+.header__action-button:hover {
+  opacity: 0.6;
+  transition: 0.5s;
+}
+
