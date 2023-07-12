@@ -57,38 +57,40 @@ function App() {
   }, [])
 
   useEffect(() => {
-    api.getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData)
-      })
-      .catch((err) => console.log(`${err}`))
-  }, [])
+    if(loggedIn) {
+      api.getUserInfo()
+        .then((userData) => {
+          setCurrentUser(userData)
+        })
+        .catch((err) => console.log(`${err}`))
+    }
+  }, [loggedIn])
 
   useEffect(() => {
-    api.getInitialCards()
-      .then((data) => {
-        setCards(data)
-      })
-      .catch((err) => console.log(`${err}`))
-  }, [])
+    if(loggedIn) {
+      api.getInitialCards()
+        .then((data) => {
+          setCards(data.reverse())
+        })
+        .catch((err) => console.log(`${err}`))
+    }
+  }, [loggedIn])
 
   function tokenCheck() {
-    if(localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
-      if (jwt) {
-        Auth.getContent(jwt)
-          .then((res) => {
-            if(res) {
-              setLoggedIn(true);
-              setUserEmail(res.data.email);
-              navigate(location.pathname)
-            }
-          })
-          .catch((err) => console.log(`${err}`))
-      }
-    } else {
-      setLoggedIn(false)
-    }
+    Auth.getContent()
+      .then((res) => {
+        if(res) {
+          setLoggedIn(true);
+          setUserEmail(res.email);
+          navigate(location.pathname)
+        } else {
+          setLoggedIn(false)
+        }
+      })
+      .catch((err) => {
+        setLoggedIn(false);
+        console.log(`Произошла ошибка ${err}: ${err.message}`);
+      })
   }
 
   function setDefaultProfileButtonContent () {
@@ -129,7 +131,6 @@ function App() {
     e.preventDefault();
     Auth.login(data.email, data.password)
       .then((res) => {
-        localStorage.setItem('jwt', res.token)
         setLoggedIn(true)
         navigate('/main', {replace: true})
         setUserEmail(data.email)
@@ -141,7 +142,6 @@ function App() {
   }
 
   function signOut () {
-    localStorage.removeItem('jwt');
     navigate('/sign-in', {replace: true});
     setLoggedIn(false)
   }
@@ -162,7 +162,7 @@ function App() {
   }
 
   function handleCardLike (cardData) {
-    const isLiked = cardData.likes.some(item => item._id === currentUser._id);
+    const isLiked = cardData.likes.some(item => item === currentUser._id);
 
     api.changeLikeCardStatus(cardData._id, !isLiked)
       .then((newCard) => {

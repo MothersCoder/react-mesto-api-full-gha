@@ -13,12 +13,12 @@ function Card (props) {
 
   function handleDeleteClick () {
     props.onConfirm(props.data);
-/*     props.onDeleteClick(props.data); */
   }
 
   const currentUser = React.useContext(CurrentUserContext);
-  const isOwn = currentUser._id === props.data.owner._id;
-  const isLiked = props.data.likes.some(item => item._id === currentUser._id);
+  const isOwn = currentUser._id === props.data.owner;
+  const isLiked = props.data.likes.some(item => item === currentUser._id);
+
   const cardLikeClassName = (
     `place__like ${isLiked && `place__like_active`}`
   );
@@ -28,6 +28,7 @@ function Card (props) {
       <div className="place__image" onClick={handleClick} style={{
         backgroundImage: `url(${props.data.link})`,
         backgroundSize: 'cover'}} />
+
       {isOwn && <button type="button" className="place__delete" onClick = {handleDeleteClick}></button>}
       <div className="place__description">
         <h2 className="place__title">{props.data.name}</h2>

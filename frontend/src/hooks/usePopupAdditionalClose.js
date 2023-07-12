@@ -6,7 +6,7 @@ export function usePopupAdditionalClose (onClose) {
   }
 
   const handleOverlay = (e) => {
-    if (e.target === e.currentTarger) {
+    if (e.target === e.currentTarget) {
       onClose()
     }
   }

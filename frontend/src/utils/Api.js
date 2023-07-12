@@ -14,6 +14,7 @@ export default class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'GET',
+      credentials: 'include',
       headers: this._headers
     })
 
@@ -23,6 +24,7 @@ export default class Api {
   addUserInfo(data) {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify(data)
     })
@@ -33,6 +35,7 @@ export default class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}cards`, {
       method: 'GET',
+      credentials: 'include',
       headers: this._headers
     })
 
@@ -42,6 +45,7 @@ export default class Api {
   addNewPlace(data) {
     return fetch(`${this._baseUrl}cards`, {
       method: 'POST',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify(data)
     })
@@ -52,6 +56,7 @@ export default class Api {
   deletCard(idCard) {
     return fetch(`${this._baseUrl}cards/${idCard}`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: this._headers
     })
 
@@ -61,6 +66,7 @@ export default class Api {
   _like(idCard){
     return fetch(`${this._baseUrl}cards/${idCard}/likes`, {
       method: 'PUT',
+      credentials: 'include',
       headers: this._headers
     })
 
@@ -69,6 +75,7 @@ export default class Api {
   _deletLike(idCard){
     return fetch(`${this._baseUrl}cards/${idCard}/likes`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: this._headers
     })
 
@@ -82,6 +89,7 @@ export default class Api {
   loadNewUserPhoto(data) {
     return fetch(`${this._baseUrl}users/me/avatar`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify(data)
     })
@@ -92,7 +100,7 @@ export default class Api {
 }
 
 export const api = new Api ({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-63/',
+  baseUrl: 'http://localhost:4000/',
   headers: {
     authorization: '9b78af5d-f197-432f-83cc-1da3dc82bcc9',
     'Content-Type': 'application/json'

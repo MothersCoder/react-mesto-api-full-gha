@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { usePopupAdditionalClose } from '../hooks/usePopupAdditionalClose';
 
 function PopupWithForm (props, e) {
-  const popupAdditionalClose = usePopupAdditionalClose(props.onClose, e.target)
+  const popupAdditionalClose = usePopupAdditionalClose(props.onClose)
 
   useEffect(() => {
     if (!props.isOpen) return;
@@ -17,7 +17,7 @@ function PopupWithForm (props, e) {
     return status ? 'popup_opened' : ''
   }
 
-  const overlayClick = () => {
+  const overlayClick = (e) => {
     popupAdditionalClose.handleOverlay(e);
   }
 

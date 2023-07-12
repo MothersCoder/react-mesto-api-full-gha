@@ -1,4 +1,4 @@
-export const baseUrl = "https://auth.nomoreparties.co"
+export const baseUrl = "http://localhost:4000"
 
 function checkResponse(res) {
   return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status} - что-то сломалось, но мы починим... `)
@@ -11,6 +11,7 @@ export const register = (email, password) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({email, password}),
   })
   .then(res => checkResponse(res))
@@ -24,19 +25,20 @@ export const login = (email, password) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({email, password})
   })
   .then(res => checkResponse(res))
   }
 
-export const getContent = (token) => {
+export const getContent = () => {
   return fetch(`${baseUrl}/users/me`, {
     method: 'GET',
     headers: {
       'Accept':  'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    }
+    },
+    credentials: 'include'
   })
   .then(res => checkResponse(res))
   .then(data => data)

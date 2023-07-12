@@ -25,7 +25,7 @@ const getCards = (req, res, next) => {
   Card.find({}, 'name link owner likes')
     .then((card) => {
       res.status(200);
-      res.send({ data: card });
+      res.send(card);
     })
     .catch(next);
 };
@@ -51,7 +51,7 @@ const like = (req, res, next) => {
     { new: true },
   )
     .orFail(() => new NotFoundError('Карточка, которую вы хотите лайкнуть не найдена'))
-    .then((newData) => res.send({ data: newData }))
+    .then((newData) => res.send(newData))
     .catch(next);
 };
 
@@ -62,7 +62,7 @@ const dislike = (req, res, next) => {
     { new: true },
   )
     .orFail(() => new NotFoundError('Карточка, которую вы хотите возненавидеть не найдена :)'))
-    .then((newData) => res.send({ data: newData }))
+    .then((newData) => res.send(newData))
     .catch(next);
 };
 

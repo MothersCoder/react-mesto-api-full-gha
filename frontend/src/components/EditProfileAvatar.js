@@ -16,7 +16,7 @@ function EditProfileAvatar (props) {
     e.preventDefault();
 
     props.onUpdateAvatar({
-      avatar: formInputs.current.value
+      avatar: formInputs.values.link
     })
   }
 
@@ -31,7 +31,7 @@ function EditProfileAvatar (props) {
     validation = {formInputs.isValid}
     >
       <>
-        <input id="link-avatar-input" className="popup__input popup__input_type_avatarlink" value = {formInputs.values.place} onChange = {formInputs.handleChange} type="url" name="link" placeholder="Ссылка на аватарку" minLength="2" required />
+        <input id="link-avatar-input" className="popup__input popup__input_type_avatarlink" value = {formInputs.values.link} onChange = {formInputs.handleChange} type="url" name="link" placeholder="Ссылка на аватарку" minLength="2" required />
         <div className="popup__error-zone">
           <span className={`link-avatar-input-error popup__error ${formInputs.isValid ? `` : `popup__error_visible`}`}>{formInputs.errors.link}</span>
         </div>

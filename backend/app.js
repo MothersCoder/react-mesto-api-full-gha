@@ -6,6 +6,8 @@ const { errors } = require('celebrate');
 
 const helmet = require('helmet');
 const mongoose = require('mongoose');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const cors = require('cors');
 
 const cookieParser = require('cookie-parser');
 const routers = require('./routes');
@@ -14,10 +16,18 @@ const login = require('./routes/signin');
 const register = require('./routes/signup');
 const { error } = require('./middlewares/error');
 
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+
 const app = express();
 const hostname = '0.0.0.0';
 
-const { PORT = 3000 } = process.env;
+const { PORT = 4000 } = process.env;
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -34,6 +44,8 @@ mongoose.connect('mongodb://0.0.0.0:27017/mestodb', {
 app.use(limiter);
 app.use(helmet());
 
+app.use(requestLogger);
+
 app.use(login);
 app.use(register);
 
@@ -45,9 +57,11 @@ app.get('/signout', (req, res) => {
   res.clearCookie('jwt').send({ message: 'Выход' });
 });
 
+app.use(errorLogger);
+
 app.use(errors());
 app.use(error);
 
 app.listen(PORT, hostname, () => {
-  console.log('server running on port 3000');
+  console.log('server running on port 4000');
 });

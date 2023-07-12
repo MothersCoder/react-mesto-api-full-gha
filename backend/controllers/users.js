@@ -11,7 +11,7 @@ const BadRequest = require('../errors/bad-request-err');
 const getUserInfo = (id, res, next) => {
   User.findById(id, 'name about avatar email')
     .orFail(() => new NotFoundError('Пользователя с таким ID не существует.'))
-    .then((user) => res.status(200).send({ data: user }))
+    .then((user) => res.status(200).send(user))
     .catch(next);
 };
 
@@ -51,7 +51,7 @@ const createUser = (req, res, next) => {
 const getUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
-      res.send({ data: users });
+      res.send(users);
     })
     .catch(next);
 };
@@ -60,7 +60,7 @@ const changeUserData = (req, res, next) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
     .orFail(() => new NotFoundError('Пользователь не найден, указан неверный ID'))
-    .then((newUserData) => res.status(200).send({ data: newUserData }))
+    .then((newUserData) => res.status(200).send(newUserData))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequest('Введены некорректные данные при изменении пользователя'));
@@ -74,7 +74,7 @@ const changeUserAvatar = (req, res, next) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
     .orFail(() => new NotFoundError('Пользователь с таким ID не найден'))
-    .then((newUserData) => res.status(200).send({ data: newUserData }))
+    .then((newUserData) => res.status(200).send(newUserData))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequest('Введены некорректные данные при изменении аватара пользователя'));
