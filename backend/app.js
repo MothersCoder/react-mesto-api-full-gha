@@ -39,7 +39,8 @@ app.use(express.json());
 
 mongoose.connect('mongodb://0.0.0.0:27017/mestodb', {
   useNewUrlParser: true,
-});
+// eslint-disable-next-line no-console
+}).then(() => console.log('Connected to MongoDB'));
 
 app.use(limiter);
 app.use(helmet());
