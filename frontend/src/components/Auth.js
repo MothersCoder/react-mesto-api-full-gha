@@ -1,5 +1,5 @@
-const { NODE_ENV, BASE_URL } = process.env
-export const baseUrl = NODE_ENV === 'production' ? BASE_URL : 'http://localhost:4000'
+const { NODE_ENV, REACT_APP_BASE_URL } = process.env
+export const baseUrl = NODE_ENV === 'production' ? REACT_APP_BASE_URL : 'http://localhost:4000'
 
 function checkResponse(res) {
   return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status} - что-то сломалось, но мы починим... `)
