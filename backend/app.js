@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-unresolved
+require('dotenv').config();
 const express = require('express');
 
 const rateLimit = require('express-rate-limit');
