@@ -13,7 +13,7 @@ export default class Api {
   }
 
   getUserInfo() {
-    return fetch(`${this._baseUrl}users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       credentials: 'include',
       headers: this._headers
@@ -23,7 +23,7 @@ export default class Api {
   }
 
   addUserInfo(data) {
-    return fetch(`${this._baseUrl}users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       credentials: 'include',
       headers: this._headers,
@@ -34,7 +34,7 @@ export default class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'GET',
       credentials: 'include',
       headers: this._headers
@@ -44,7 +44,7 @@ export default class Api {
   }
 
   addNewPlace(data) {
-    return fetch(`${this._baseUrl}cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       credentials: 'include',
       headers: this._headers,
@@ -55,7 +55,7 @@ export default class Api {
   }
 
   deletCard(idCard) {
-    return fetch(`${this._baseUrl}cards/${idCard}`, {
+    return fetch(`${this._baseUrl}/cards/${idCard}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: this._headers
@@ -65,7 +65,7 @@ export default class Api {
   }
 
   _like(idCard){
-    return fetch(`${this._baseUrl}cards/${idCard}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
       method: 'PUT',
       credentials: 'include',
       headers: this._headers
@@ -74,7 +74,7 @@ export default class Api {
     .then(this._checkResponse)
   }
   _deletLike(idCard){
-    return fetch(`${this._baseUrl}cards/${idCard}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
       method: 'DELETE',
       credentials: 'include',
       headers: this._headers
@@ -88,7 +88,7 @@ export default class Api {
   }
 
   loadNewUserPhoto(data) {
-    return fetch(`${this._baseUrl}users/me/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       credentials: 'include',
       headers: this._headers,
@@ -101,7 +101,7 @@ export default class Api {
 }
 
 export const api = new Api ({
-  baseUrl: NODE_ENV === 'production' ? REACT_APP_BASE_URL : 'http://localhost:4000/',
+  baseUrl: NODE_ENV === 'production' ? REACT_APP_BASE_URL : 'http://localhost:4000',
   headers: {
     authorization: '9b78af5d-f197-432f-83cc-1da3dc82bcc9',
     'Content-Type': 'application/json'
