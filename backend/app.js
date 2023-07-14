@@ -25,7 +25,10 @@ const hostname = '0.0.0.0';
 const { PORT = 4000 } = process.env;
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: [
+    'http://localhost:3000',
+    'http://mmc.nomoredomains.work/',
+  ],
   credentials: true,
 }));
 
