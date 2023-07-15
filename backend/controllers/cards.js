@@ -10,7 +10,7 @@ const createCard = (req, res, next) => {
 
   Card.create({ name, link, owner })
     .then((card) => {
-      res.send(card);
+      res.status(201).send(card);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -33,13 +33,13 @@ const getCards = (req, res, next) => {
 const deleteCard = (req, res, next) => {
   Card.findById(req.params.cardId)
     .orFail(() => new NotFoundError('Запрашиваема карточка не найдена'))
+    // eslint-disable-next-line consistent-return
     .then((card) => {
       if (card.owner.equals(req.user._id)) {
-        Card.deleteOne(card)
+        return Card.deleteOne(card)
           .then((userCard) => res.status(200).send(userCard));
-      } else {
-        throw new Forbidden('Нельзя удалить карточку, которую создали не вы');
       }
+      next(new Forbidden('Нельзя удалить карточку, которую создали не вы'));
     })
     .catch(next);
 };

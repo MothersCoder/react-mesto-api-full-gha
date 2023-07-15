@@ -8,7 +8,8 @@ const auth = (req, res, next) => {
   const token = req.cookies.jwt;
 
   if (!token) {
-    throw new Unautorized('Пожалуйста, авторизуйтесь');
+    next(new Unautorized('Пожалуйста, авторизуйтесь'));
+    return;
   }
 
   let payload;

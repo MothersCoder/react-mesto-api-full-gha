@@ -1,24 +1,19 @@
 const mongoose = require('mongoose');
 const isEmail = require('validator/lib/isEmail');
-const isLength = require('validator/lib/isLength');
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: false,
-    validate: {
-      validator: (name) => isLength(name, { min: 2, max: 30 }),
-      message: 'Длинна имени должна быть от 2 до 30 символов.',
-    },
+    minlength: 2,
+    maxlength: 30,
     default: 'Жак-Ив Кусто',
   },
   about: {
     type: String,
     required: false,
-    validate: {
-      validator: (about) => isLength(about, { min: 2, max: 30 }),
-      message: 'Информация о вас очен интересна, но постарайтесь уложиться в описание от 2 до 30 символов.',
-    },
+    minlength: 2,
+    maxlength: 30,
     default: 'Исследователь',
   },
   avatar: {

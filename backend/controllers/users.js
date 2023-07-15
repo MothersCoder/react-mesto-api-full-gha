@@ -93,7 +93,8 @@ const login = (req, res, next) => {
     .then((user) => bcrypt.compare(password, user.password)
       .then((matched) => {
         if (!matched) {
-          throw new Unautorized('Неверный логин или пароль');
+          next(new Unautorized('Неверный логин или пароль'));
+          return;
         }
         const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : tokenKey, { expiresIn: '7d' });
         res.cookie('jwt', token, {
@@ -101,9 +102,8 @@ const login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         });
-        return (
-          res.status(200).send({ token })
-        );
+        // eslint-disable-next-line consistent-return
+        return res.status(200).send({ token });
       }))
     .catch(next);
 };
