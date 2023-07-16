@@ -103,7 +103,7 @@ const login = (req, res, next) => {
           sameSite: true,
         });
         // eslint-disable-next-line consistent-return
-        return res.status(200).send({ token });
+        return res.status(200);
       }))
     .catch(next);
 };
