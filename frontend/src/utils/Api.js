@@ -103,6 +103,7 @@ export default class Api {
 export const api = new Api ({
   baseUrl: NODE_ENV === 'production' ? REACT_APP_BASE_URL : 'http://localhost:4000',
   headers: {
-    'Content-Type': 'application/json'
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
   }
 });;
